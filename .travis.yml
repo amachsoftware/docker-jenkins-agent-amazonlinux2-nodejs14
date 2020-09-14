@@ -1,6 +1,6 @@
+os: linux
+dist: xenial
 language: node_js
-
-sudo: required
 
 services:
   - docker
@@ -9,16 +9,15 @@ env:
   global:
     - IMAGE_NAME=altcatalin/jenkins-agent-amazonlinux2-nodejs
 
-matrix:
+jobs:
   include:
     - node_js: 12
     - node_js: 14
 
 script:
-  - NODE_VERSION="${TRAVIS_NODE_VERSION#v}"
-  - docker build --pull --tag "${IMAGE_NAME}":"${NODE_VERSION}" --build-arg NODE_VERSION="${NODE_VERSION}" .
-  - docker run --entrypoint /usr/bin/cat "${IMAGE_NAME}":"${NODE_VERSION}" /etc/os-release | grep -i amazon
-  - docker run --entrypoint node "${IMAGE_NAME}":"${NODE_VERSION}" --version | grep -i "${NODE_VERSION}"
+  - docker build --pull --tag "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" --build-arg NODE_VERSION="${TRAVIS_NODE_VERSION}" .
+  - docker run --entrypoint /usr/bin/cat "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" /etc/os-release | grep -i amazon
+  - docker run --entrypoint node "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" --version | grep -i "${TRAVIS_NODE_VERSION}"
 
 after_script:
   - docker images
@@ -28,6 +27,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push "${IMAGE_NAME}:${TRAVIS_NODE_VERSION#v}"
+  script: docker push "${IMAGE_NAME}:${TRAVIS_NODE_VERSION}"
   on:
     all_branches: true
