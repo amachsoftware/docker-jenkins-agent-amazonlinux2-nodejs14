@@ -12,9 +12,10 @@ env:
 matrix:
   include:
     - node_js: 12
+    - node_js: 14
 
 script:
-  - export NODE_VERSION=$(node -e "console.log(process.version.match(/^v(\d+\.\d+\.\d+)/)[1])")
+  - NODE_VERSION="${TRAVIS_NODE_VERSION#v}"
   - docker build --pull --tag "${IMAGE_NAME}":"${NODE_VERSION}" --build-arg NODE_VERSION="${NODE_VERSION}" .
   - docker run --entrypoint /usr/bin/cat "${IMAGE_NAME}":"${NODE_VERSION}" /etc/os-release | grep -i amazon
   - docker run --entrypoint node "${IMAGE_NAME}":"${NODE_VERSION}" --version | grep -i "${NODE_VERSION}"
@@ -27,6 +28,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push "${IMAGE_NAME}:${NODE_VERSION}"
+  script: docker push "${IMAGE_NAME}:${TRAVIS_NODE_VERSION#v}"
   on:
     all_branches: true
