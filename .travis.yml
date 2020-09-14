@@ -15,9 +15,10 @@ jobs:
     - node_js: 14
 
 script:
-  - docker build --pull --tag "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" --build-arg NODE_VERSION="${TRAVIS_NODE_VERSION}" .
-  - docker run --entrypoint /usr/bin/cat "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" /etc/os-release | grep -i amazon
-  - docker run --entrypoint node "${IMAGE_NAME}":"${TRAVIS_NODE_VERSION}" --version | grep -i "${TRAVIS_NODE_VERSION}"
+  - NODE_VERSION=$(node -e "console.log(process.version.match(/^v(\d+\.\d+\.\d+)/)[1])")
+  - docker build --pull --tag "${IMAGE_NAME}":"${NODE_VERSION}" --build-arg NODE_VERSION="${NODE_VERSION}" .
+  - docker run --entrypoint /usr/bin/cat "${IMAGE_NAME}":"${NODE_VERSION}" /etc/os-release | grep -i amazon
+  - docker run --entrypoint node "${IMAGE_NAME}":"${NODE_VERSION}" --version | grep -i "${NODE_VERSION}"
 
 after_script:
   - docker images
@@ -27,6 +28,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push "${IMAGE_NAME}:${TRAVIS_NODE_VERSION}"
+  script: docker push "${IMAGE_NAME}:${NODE_VERSION}"
   on:
     all_branches: true
