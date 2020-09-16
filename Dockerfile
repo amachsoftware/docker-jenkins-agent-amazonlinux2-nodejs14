@@ -1,10 +1,13 @@
 FROM lazzurs/jenkins-agent-amazonlinux2:latest
 
-ARG JENKINS_AGENT_VERSION=4.3
 ARG NVM_VERSION=v0.35.3
 ARG NODE_VERSION=12.18.3
+ARG SONAR_SCANNER_VERSION=4.4.0.2170
 
-LABEL Description="Jenkins Agent v${JENKINS_AGENT_VERSION} on Amazon Linux 2 with Node.js v${NODE_VERSION} pre-installed"
+ARG SONAR_HOME=/home/jenkins/.sonar
+ARG SONAR_SCANNER_PACKAGE=sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+
+LABEL Description="Docker image with Jenkins agent and Node.js on Amazon Linux 2"
 LABEL Vendor="Catalin Piscureanu"
 
 USER root
@@ -28,4 +31,11 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install
     nvm use default
 
 ENV NODE_PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/lib/node_modules
-ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:$PATH
+ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin:${PATH}
+
+RUN curl https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${SONAR_SCANNER_PACKAGE} -o ${SONAR_SCANNER_PACKAGE} -s && \
+    unzip ${SONAR_SCANNER_PACKAGE} -d ${SONAR_HOME} && \
+    rm ${SONAR_SCANNER_PACKAGE}
+
+ENV SONAR_RUNNER_HOME ${SONAR_HOME}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
+ENV PATH ${SONAR_RUNNER_HOME}/bin:${PATH}

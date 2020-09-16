@@ -1,3 +1,10 @@
 # docker-jenkins-agent-amazonlinux2-nodejs
-Jenkins Agent on Amazon Linux 2 with Node.js pre-installed.  
-Extra system packages are installed to facilitate building native Node.js modules against the Amazon Linux libraries.  
+Docker image with Jenkins agent and Node.js on Amazon Linux 2.  
+The image is an extension to [lazzurs/jenkins-agent-amazonlinux2:latest](lazzurs/jenkins-agent-amazonlinux2).  
+
+**Software**:
+- Jenkins agent, [check version](https://github.com/lazzurs/docker-jenkins-agent-amazonlinux2/blob/master/Dockerfile#L3)
+- nvm v0.35.3
+- Node.js v12.18.3
+- SonarScanner 4.4.0.2170
+- extra system packages for Node.js native addons compilation  
