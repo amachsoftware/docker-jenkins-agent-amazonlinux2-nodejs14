@@ -39,3 +39,5 @@ RUN curl https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${SONAR
 
 ENV SONAR_RUNNER_HOME ${SONAR_HOME}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 ENV PATH ${SONAR_RUNNER_HOME}/bin:${PATH}
+
+RUN npm install -g standard-version@9.0.0
