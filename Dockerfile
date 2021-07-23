@@ -15,6 +15,7 @@ USER root
 RUN yum update -y
 RUN yum install -y glibc-langpack-en && \
     yum groupinstall -y development && \
+    yum install -y xorg-x11-server-Xvfb gtk2-devel gtk3-devel libnotify-devel GConf2 nss libXScrnSaver alsa-lib && \
     yum install -y which clang cmake && \
     yum clean all && \
     rm -rf /var/cache/yum
