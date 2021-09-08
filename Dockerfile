@@ -2,7 +2,7 @@ FROM ghcr.io/lazzurs/jenkins-agent-amazonlinux2:latest
 
 ARG NVM_VERSION=v0.35.3
 ARG NODE_VERSION=14.17.0
-ARG SONAR_SCANNER_VERSION=4.4.0.2170
+ARG SONAR_SCANNER_VERSION=4.6.2.2472
 
 ARG SONAR_HOME=/home/jenkins/.sonar
 ARG SONAR_SCANNER_PACKAGE=sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
