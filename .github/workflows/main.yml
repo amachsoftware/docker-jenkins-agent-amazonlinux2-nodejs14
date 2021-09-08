@@ -3,7 +3,9 @@ name: jenkins-agent-amazonlinux2-nodejs14
 on:
   push:
     branches:
-      - "main"
+      - "master"
+  schedule:
+    - cron: '5 1 * * *'
   workflow_dispatch:
 
 jobs:
@@ -24,5 +26,5 @@ jobs:
     - name: publish jenkins-agent-amazonlinux2-nodejs14:${{env.TODAY}} image
       run: |
         docker push ghcr.io/harrymckillen/jenkins-agent-amazonlinux2-nodejs14:${{env.TODAY}}
-        docker tag ghcr.io/harrymckillen/jenkins-agent-amazonlinux2-nodejs14:${{env.TODAY}} ghcr.io/lazzurs/jenkins-agent-amazonlinux2-nodejs14:latest
+        docker tag ghcr.io/harrymckillen/jenkins-agent-amazonlinux2-nodejs14:${{env.TODAY}} ghcr.io/harrymckillen/jenkins-agent-amazonlinux2-nodejs14:latest
         docker push ghcr.io/harrymckillen/jenkins-agent-amazonlinux2-nodejs14:latest
