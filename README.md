@@ -10,6 +10,6 @@ The image is an extension to [lazzurs/jenkins-agent-amazonlinux2:latest](lazzurs
 - [Node.js v14.17.6](https://nodejs.org/en/download/package-manager/#nvm)
 - [Yarn v1.22.10](https://yarnpkg.com/getting-started/install)
 - [standard-version 9.3.1](https://github.com/conventional-changelog/standard-version)
-- [SonarScanner 4.4.0.2170](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
+- [SonarScanner 4.6.2.2472](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
 - [nx workspace](https://nx.dev)
 - extra system packages for Node.js native addons compilation  
