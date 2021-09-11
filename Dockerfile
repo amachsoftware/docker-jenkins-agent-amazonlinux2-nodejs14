@@ -1,6 +1,6 @@
 FROM ghcr.io/lazzurs/jenkins-agent-amazonlinux2:latest
 
-ARG NVM_VERSION=v0.35.3
+ARG NVM_VERSION=v0.38.0
 ARG NODE_VERSION=14.17.6
 ARG SONAR_SCANNER_VERSION=4.4.0.2170
 
@@ -41,6 +41,6 @@ RUN curl https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${SONAR
 ENV SONAR_RUNNER_HOME ${SONAR_HOME}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux
 ENV PATH ${SONAR_RUNNER_HOME}/bin:${PATH}
 
-RUN npm install -g standard-version@9.0.0 && \
+RUN npm install -g standard-version@9.3.1 && \
     npm install -g yarn && \
     yarn global add nx
