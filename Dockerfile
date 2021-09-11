@@ -1,6 +1,6 @@
 FROM ghcr.io/lazzurs/jenkins-agent-amazonlinux2:latest
 
-ARG NVM_VERSION=v0.35.3
+ARG NVM_VERSION=v0.38.0
 ARG NODE_VERSION=14.17.0
 ARG SONAR_SCANNER_VERSION=4.4.0.2170
 
