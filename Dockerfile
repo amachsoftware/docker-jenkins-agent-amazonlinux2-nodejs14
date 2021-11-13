@@ -12,7 +12,11 @@ LABEL Vendor="Catalin Piscureanu"
 
 USER root
 
-RUN yum update -y
+COPY install-google-chrome.sh /usr/local/bin/install-google-chrome.sh
+RUN yum update -y &&\
+    chmod +x /usr/local/bin/install-google-chrome.sh &&\
+    /usr/local/bin/install-google-chrome.sh
+
 RUN yum install -y glibc-langpack-en && \
     yum groupinstall -y development && \
     yum install -y xorg-x11-server-Xvfb gtk2-devel gtk3-devel libnotify-devel GConf2 nss libXScrnSaver alsa-lib && \
