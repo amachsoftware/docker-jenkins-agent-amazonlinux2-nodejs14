@@ -3,7 +3,7 @@ name: jenkins-agent-amazonlinux2-nodejs14
 on:
   push:
     branches:
-      - "master"
+      - "main"
   schedule:
     - cron: '5 1 * * *'
   workflow_dispatch:
